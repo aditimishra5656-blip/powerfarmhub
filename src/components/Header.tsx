@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navItems = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about" },
-    { name: "Tractors", href: "#tractors" },
-    { name: "Services", href: "#services" },
-    { name: "Testimonials", href: "#testimonials" },
-    { name: "Contact", href: "#contact" }
+    { name: "Home", href: "/" },
+    { name: "About", href: "/about" },
+    { name: "Tractors", href: "/tractors" },
+    { name: "Services", href: "/services" },
+    { name: "Finance", href: "/finance" },
+    { name: "Testimonials", href: "/testimonials" },
+    { name: "Contact", href: "/contact" }
   ];
 
   return (
@@ -40,23 +42,23 @@ const Header = () => {
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
-            <div className="flex items-center">
+            <Link to="/" className="flex items-center">
               <div className="text-2xl font-bold text-powertrac-blue">
                 Power<span className="text-powertrac-orange">Trac</span>
                 <div className="text-sm font-normal text-powertrac-gray">Authorized Dealer</div>
               </div>
-            </div>
+            </Link>
 
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-8">
               {navItems.map((item) => (
-                <a
+                <Link
                   key={item.name}
-                  href={item.href}
+                  to={item.href}
                   className="text-powertrac-gray hover:text-powertrac-blue font-medium transition-colors"
                 >
                   {item.name}
-                </a>
+                </Link>
               ))}
             </nav>
 
@@ -79,14 +81,14 @@ const Header = () => {
             <div className="lg:hidden border-t bg-white py-4">
               <nav className="flex flex-col space-y-4">
                 {navItems.map((item) => (
-                  <a
+                  <Link
                     key={item.name}
-                    href={item.href}
+                    to={item.href}
                     onClick={() => setIsMenuOpen(false)}
                     className="text-powertrac-gray hover:text-powertrac-blue font-medium px-4 py-2"
                   >
                     {item.name}
-                  </a>
+                  </Link>
                 ))}
                 <Button className="mx-4 bg-powertrac-orange hover:bg-powertrac-orange/90 text-white font-semibold">
                   Get Quote Now
