@@ -14,7 +14,135 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      quotes: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          location: string | null
+          message: string | null
+          name: string
+          phone: string
+          status: string | null
+          tractor_model: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          location?: string | null
+          message?: string | null
+          name: string
+          phone: string
+          status?: string | null
+          tractor_model: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          location?: string | null
+          message?: string | null
+          name?: string
+          phone?: string
+          status?: string | null
+          tractor_model?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      service_bookings: {
+        Row: {
+          created_at: string
+          email: string | null
+          id: string
+          location: string | null
+          message: string | null
+          name: string
+          phone: string
+          preferred_date: string | null
+          service_type: string
+          status: string | null
+          tractor_model: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          location?: string | null
+          message?: string | null
+          name: string
+          phone: string
+          preferred_date?: string | null
+          service_type: string
+          status?: string | null
+          tractor_model?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          id?: string
+          location?: string | null
+          message?: string | null
+          name?: string
+          phone?: string
+          preferred_date?: string | null
+          service_type?: string
+          status?: string | null
+          tractor_model?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      tractors: {
+        Row: {
+          created_at: string
+          features: string[]
+          fuel_efficiency: string
+          hp: string
+          id: string
+          image_url: string | null
+          is_popular: boolean | null
+          lifting_capacity: string
+          model: string
+          name: string
+          price_range: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          features?: string[]
+          fuel_efficiency: string
+          hp: string
+          id?: string
+          image_url?: string | null
+          is_popular?: boolean | null
+          lifting_capacity: string
+          model: string
+          name: string
+          price_range: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          features?: string[]
+          fuel_efficiency?: string
+          hp?: string
+          id?: string
+          image_url?: string | null
+          is_popular?: boolean | null
+          lifting_capacity?: string
+          model?: string
+          name?: string
+          price_range?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
