@@ -31,8 +31,11 @@ const Header = () => {
               <span>Visit our showroom today!</span>
             </div>
           </div>
-          <div className="hidden md:block">
+          <div className="hidden md:flex items-center gap-4">
             <span>Authorized PowerTrac Dealer | Best Prices Guaranteed</span>
+            <Button asChild variant="outline" size="sm" className="text-powertrac-blue border-white hover:bg-white hover:text-powertrac-blue">
+              <Link to="/auth">Admin Login</Link>
+            </Button>
           </div>
         </div>
       </div>
