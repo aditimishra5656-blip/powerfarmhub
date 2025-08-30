@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { QuoteForm } from "@/components/CTAForms";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -67,9 +68,9 @@ const Header = () => {
 
             {/* CTA Button & Mobile Menu Toggle */}
             <div className="flex items-center gap-4">
-              <Button className="hidden md:flex bg-powertrac-orange hover:bg-powertrac-orange/90 text-white font-semibold">
-                Get Quote Now
-              </Button>
+              <div className="hidden md:block">
+                <QuoteForm triggerText="Get Quote Now" />
+              </div>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
                 className="lg:hidden text-powertrac-gray hover:text-powertrac-blue"
@@ -93,9 +94,9 @@ const Header = () => {
                     {item.name}
                   </Link>
                 ))}
-                <Button className="mx-4 bg-powertrac-orange hover:bg-powertrac-orange/90 text-white font-semibold">
-                  Get Quote Now
-                </Button>
+                <div className="mx-4">
+                  <QuoteForm triggerText="Get Quote Now" />
+                </div>
               </nav>
             </div>
           )}

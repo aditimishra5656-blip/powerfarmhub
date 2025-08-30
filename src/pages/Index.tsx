@@ -2,13 +2,15 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Link } from "react-router-dom";
-import { Shield, Wrench, CreditCard, HeadphonesIcon, Star } from "lucide-react";
+import { Shield, Wrench, CreditCard, HeadphonesIcon, Star, CheckCircle, Users, Award, Clock, Phone, MapPin } from "lucide-react";
 
 // Components
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import TractorCard from "@/components/TractorCard";
 import Footer from "@/components/Footer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
+import { QuoteForm, ServiceBookingForm } from "@/components/CTAForms";
 
 // Assets
 import tractor439 from "@/assets/tractor-439.jpg";
@@ -134,11 +136,56 @@ const Index = () => {
           </div>
 
           <div className="text-center mt-12">
-            <Link to="/tractors">
-              <Button className="bg-powertrac-orange hover:bg-powertrac-orange/90 text-white text-lg px-8 py-4">
-                View All Models
-              </Button>
-            </Link>
+            <QuoteForm triggerText="View All Tractors & Get Quote" />
+          </div>
+        </div>
+      </section>
+
+      {/* Why Choose Us Section */}
+      <section className="py-20 bg-muted/50">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-powertrac-green text-white">Why Choose Us</Badge>
+            <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
+              Your Trusted PowerTrac Partner
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              With years of experience and commitment to excellence, we're your reliable partner for all PowerTrac needs.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="text-center group">
+              <div className="bg-powertrac-blue/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-blue/20 transition-colors">
+                <Award className="w-8 h-8 text-powertrac-blue" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Authorized Dealer</h3>
+              <p className="text-muted-foreground">Official PowerTrac dealership with genuine parts and warranty</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="bg-powertrac-green/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-green/20 transition-colors">
+                <Users className="w-8 h-8 text-powertrac-green" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Expert Support</h3>
+              <p className="text-muted-foreground">Trained technicians for sales, service, and maintenance support</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="bg-powertrac-orange/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-orange/20 transition-colors">
+                <Clock className="w-8 h-8 text-powertrac-orange" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Quick Service</h3>
+              <p className="text-muted-foreground">Fast delivery, immediate support, and prompt service response</p>
+            </div>
+
+            <div className="text-center group">
+              <div className="bg-powertrac-blue/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-blue/20 transition-colors">
+                <CheckCircle className="w-8 h-8 text-powertrac-blue" />
+              </div>
+              <h3 className="text-xl font-semibold mb-2">Best Prices</h3>
+              <p className="text-muted-foreground">Competitive pricing with flexible financing options available</p>
+            </div>
           </div>
         </div>
       </section>
@@ -235,30 +282,25 @@ const Index = () => {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-powertrac-blue to-powertrac-green">
+      <section className="py-20 bg-gradient-to-r from-powertrac-blue to-powertrac-green text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-6">
-            Ready to Transform Your Farm?
-          </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
-            Get the best deals on PowerTrac tractors with expert guidance and comprehensive support.
+          <h2 className="text-4xl font-bold mb-4">Ready to Power Your Farm?</h2>
+          <p className="text-xl mb-8 max-w-2xl mx-auto">
+            Get in touch with us today for the best deals on PowerTrac tractors, expert advice, and comprehensive support.
           </p>
-          <div className="flex gap-4 justify-center">
-            <Link to="/contact">
-              <Button className="bg-white text-powertrac-blue hover:bg-gray-100 text-lg px-8 py-4">
-                Get Free Quote
-              </Button>
-            </Link>
-            <Link to="/finance">
-             <Button variant="outline" className="border-white text-white hover:bg-white hover:text-powertrac-blue text-lg px-8 py-4">
-                Check Finance Options
-              </Button>
-            </Link>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <QuoteForm triggerText="Get Best Quote" variant="secondary" />
+            <ServiceBookingForm triggerText="Book Service" variant="outline" />
+            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-powertrac-blue">
+              <Phone className="w-4 h-4 mr-2" />
+              Call Now: +91 98765 43210
+            </Button>
           </div>
         </div>
       </section>
 
       <Footer />
+      <WhatsAppFloat />
     </div>
   );
 };
