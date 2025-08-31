@@ -1,8 +1,10 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Shield, Wrench, CreditCard, HeadphonesIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { Shield, Wrench, CreditCard, HeadphonesIcon, Calendar, Phone, User, MessageSquare } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { ServiceBookingForm } from "@/components/CTAForms";
 
 const Services = () => {
   const services = [
@@ -60,6 +62,77 @@ const Services = () => {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Online Service Booking Section */}
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <Badge className="mb-4 bg-powertrac-green text-white">Book Service Online</Badge>
+            <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
+              Schedule Your Tractor Service
+            </h2>
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              Book professional tractor service at your convenience. Our certified technicians 
+              will visit your location with genuine parts and equipment.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <Card className="bg-gradient-card border-0 p-8">
+                <CardContent>
+                  <h3 className="text-2xl font-bold text-powertrac-blue mb-6">Why Choose Our Service?</h3>
+                  <div className="space-y-4">
+                    <div className="flex items-start gap-3">
+                      <User className="w-6 h-6 text-powertrac-orange mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-powertrac-blue">Certified Technicians</h4>
+                        <p className="text-muted-foreground">Expert technicians trained on PowerTrac systems</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Calendar className="w-6 h-6 text-powertrac-orange mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-powertrac-blue">Flexible Scheduling</h4>
+                        <p className="text-muted-foreground">Book service at your preferred date and time</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <Phone className="w-6 h-6 text-powertrac-orange mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-powertrac-blue">On-Site Service</h4>
+                        <p className="text-muted-foreground">Service at your farm or location</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <MessageSquare className="w-6 h-6 text-powertrac-orange mt-1" />
+                      <div>
+                        <h4 className="font-semibold text-powertrac-blue">Custom Solutions</h4>
+                        <p className="text-muted-foreground">Tailored service based on your specific needs</p>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <div className="text-center">
+              <Card className="bg-white border-2 border-powertrac-blue/20 p-8">
+                <CardContent>
+                  <h3 className="text-2xl font-bold text-powertrac-blue mb-4">Book Your Service Now</h3>
+                  <p className="text-muted-foreground mb-6">
+                    Fill in your details and we'll contact you to confirm your service appointment
+                  </p>
+                  <ServiceBookingForm 
+                    triggerText="Schedule Service Appointment" 
+                    variant="default"
+                  />
+                </CardContent>
+              </Card>
+            </div>
           </div>
         </div>
       </section>

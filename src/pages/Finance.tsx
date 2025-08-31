@@ -4,6 +4,8 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, CreditCard, TrendingUp, Calculator, FileText, Clock } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { EMICalculator } from "@/components/EMICalculator";
+import { QuoteForm } from "@/components/CTAForms";
 
 const Finance = () => {
   const financeOptions = [
@@ -148,12 +150,14 @@ const Finance = () => {
                 Get pre-approved in minutes and drive home your PowerTrac tractor today!
               </p>
               <div className="flex gap-4 justify-center">
-                <Button className="bg-white text-powertrac-blue hover:bg-gray-100 text-lg px-8 py-4">
-                  Calculate EMI
-                </Button>
-                <Button variant="outline" className="border-white text-white hover:bg-white hover:text-powertrac-blue text-lg px-8 py-4">
-                  Get Finance Quote
-                </Button>
+                <EMICalculator 
+                  triggerText="Calculate EMI"
+                  variant="default"
+                />
+                <QuoteForm 
+                  triggerText="Get Finance Quote"
+                  variant="outline"
+                />
               </div>
             </CardContent>
           </Card>
