@@ -1,20 +1,51 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { MapPin, TrendingUp, CheckCircle } from "lucide-react";
+import { MapPin, TrendingUp, CheckCircle, Phone, Mail, Clock, Navigation } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { supabase } from "@/integrations/supabase/client";
+
+interface ContactInfo {
+  phone: string;
+  email: string;
+  showroom_address: string;
+  opening_hours: string;
+}
 
 const Contact = () => {
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   const [formData, setFormData] = useState({
     name: "",
     phone: "",
     tractorModel: "",
     message: ""
   });
+
+  useEffect(() => {
+    fetchContactInfo();
+  }, []);
+
+  const fetchContactInfo = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('contact_info')
+        .select('*')
+        .limit(1)
+        .single();
+
+      if (error && error.code !== 'PGRST116') throw error;
+      
+      if (data) {
+        setContactInfo(data);
+      }
+    } catch (error) {
+      console.error('Error fetching contact info:', error);
+    }
+  };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -79,26 +110,70 @@ const Contact = () => {
               </CardContent>
             </Card>
 
-            {/* Contact Info & Map Placeholder */}
+            {/* Contact Info & Map */}
             <div className="space-y-8">
               <Card className="border-0 shadow-card">
                 <CardContent className="p-6">
-                  <h3 className="text-xl font-semibold text-powertrac-blue mb-4">Visit Our Showroom</h3>
-                  <div className="space-y-4">
-                    <div className="flex items-start gap-3">
-                      <MapPin className="w-5 h-5 text-powertrac-orange mt-1" />
-                      <div>
-                        <div className="font-medium">123 Industrial Road, Sector 15</div>
-                        <div className="text-muted-foreground">Agricultural Hub, City - 110001</div>
+                  <h3 className="text-xl font-semibold text-powertrac-blue mb-6">Visit Our Showroom</h3>
+                  
+                  {contactInfo ? (
+                    <div className="space-y-6">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="flex items-start gap-3">
+                          <Phone className="w-5 h-5 text-powertrac-orange mt-1" />
+                          <div>
+                            <div className="font-medium">Phone</div>
+                            <div className="text-muted-foreground">{contactInfo.phone}</div>
+                          </div>
+                        </div>
+                        
+                        <div className="flex items-start gap-3">
+                          <Mail className="w-5 h-5 text-powertrac-orange mt-1" />
+                          <div>
+                            <div className="font-medium">Email</div>
+                            <div className="text-muted-foreground">{contactInfo.email}</div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-3">
+                        <MapPin className="w-5 h-5 text-powertrac-orange mt-1" />
+                        <div className="flex-1">
+                          <div className="font-medium mb-1">Address</div>
+                          <div className="text-muted-foreground mb-2">{contactInfo.showroom_address}</div>
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            className="text-powertrac-blue border-powertrac-blue hover:bg-powertrac-blue hover:text-white"
+                            onClick={() => {
+                              const encodedAddress = encodeURIComponent(contactInfo.showroom_address);
+                              window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
+                            }}
+                          >
+                            <Navigation className="w-4 h-4 mr-2" />
+                            Get Directions
+                          </Button>
+                        </div>
+                      </div>
+
+                      <div className="flex items-start gap-3">
+                        <Clock className="w-5 h-5 text-powertrac-orange mt-1" />
+                        <div>
+                          <div className="font-medium">Opening Hours</div>
+                          <div className="text-muted-foreground whitespace-pre-line">{contactInfo.opening_hours}</div>
+                        </div>
                       </div>
                     </div>
-                    <div className="bg-muted/50 h-32 rounded-lg flex items-center justify-center">
-                      <div className="text-center text-muted-foreground">
-                        <MapPin className="w-8 h-8 mx-auto mb-2" />
-                        <div className="text-sm">Interactive Map Coming Soon</div>
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="flex items-start gap-3">
+                        <MapPin className="w-5 h-5 text-powertrac-orange mt-1" />
+                        <div>
+                          <div className="font-medium">Loading contact information...</div>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
 

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TractorManagement from "@/components/admin/TractorManagement";
+import ContactInfoManagement from "@/components/admin/ContactInfoManagement";
 import QuotesManagement from "@/components/admin/QuotesManagement";
 import ServiceBookingsManagement from "@/components/admin/ServiceBookingsManagement";
 import { useAuth } from "@/contexts/AuthContext";
@@ -46,10 +47,14 @@ const Admin = () => {
           </div>
 
           <Tabs defaultValue="tractors" className="w-full">
-            <TabsList className="grid w-full grid-cols-4 mb-8">
+            <TabsList className="grid w-full grid-cols-5 mb-8">
               <TabsTrigger value="tractors" className="flex items-center gap-2">
                 <Tractor className="w-4 h-4" />
                 Tractors
+              </TabsTrigger>
+              <TabsTrigger value="contact" className="flex items-center gap-2">
+                <User className="w-4 h-4" />
+                Contact Info
               </TabsTrigger>
               <TabsTrigger value="quotes" className="flex items-center gap-2">
                 <MessageSquare className="w-4 h-4" />
@@ -67,6 +72,10 @@ const Admin = () => {
 
             <TabsContent value="tractors">
               <TractorManagement />
+            </TabsContent>
+
+            <TabsContent value="contact">
+              <ContactInfoManagement />
             </TabsContent>
 
             <TabsContent value="quotes">
