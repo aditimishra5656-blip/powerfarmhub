@@ -278,7 +278,11 @@ const Index = () => {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <QuoteForm triggerText="Get Best Quote" variant="secondary" />
             <ServiceBookingForm triggerText="Book Service" variant="outline" />
-            <Button variant="outline" className="border-white text-white hover:bg-white hover:text-powertrac-blue">
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:bg-white hover:text-powertrac-blue"
+              onClick={() => window.open('tel:+919876543210', '_self')}
+            >
               <Phone className="w-4 h-4 mr-2" />
               Call Now: +91 98765 43210
             </Button>

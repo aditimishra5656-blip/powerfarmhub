@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Fuel, Gauge, Weight, Eye, Phone } from "lucide-react";
+import { QuoteForm } from "@/components/CTAForms";
 
 interface TractorCardProps {
   name: string;
@@ -96,10 +97,19 @@ const TractorCard = ({
       </CardContent>
 
       <CardFooter className="p-6 pt-0 flex gap-2">
-        <Button className="flex-1 bg-powertrac-blue hover:bg-powertrac-blue/90 text-white">
-          Get Quote
-        </Button>
-        <Button variant="outline" size="icon" className="border-powertrac-green text-powertrac-green hover:bg-powertrac-green hover:text-white">
+        <div className="flex-1">
+          <QuoteForm 
+            triggerText="Get Quote" 
+            variant="default"
+          />
+        </div>
+        <Button 
+          variant="outline" 
+          size="icon" 
+          className="border-powertrac-green text-powertrac-green hover:bg-powertrac-green hover:text-white shrink-0"
+          onClick={() => window.open('tel:+919876543210', '_self')}
+          title="Call for instant support"
+        >
           <Phone className="w-4 h-4" />
         </Button>
       </CardFooter>

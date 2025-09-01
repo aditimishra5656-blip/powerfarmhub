@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Star, Phone } from "lucide-react";
 import heroTractor from "@/assets/hero-tractor.jpg";
+import { ServiceBookingForm } from "@/components/CTAForms";
 
 const HeroSection = () => {
   return (
@@ -56,16 +57,15 @@ const HeroSection = () => {
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
-            <Button 
-              size="lg" 
-              className="bg-powertrac-orange hover:bg-powertrac-orange/90 text-white font-bold text-lg px-8 py-4 shadow-hover"
-            >
-              Book Free Demo Today
-            </Button>
+            <ServiceBookingForm 
+              triggerText="Book Free Demo Today"
+              variant="default"
+            />
             <Button 
               size="lg" 
               variant="outline" 
               className="border-white text-white hover:bg-white hover:text-powertrac-blue font-bold text-lg px-8 py-4"
+              onClick={() => window.open('tel:+919876543210', '_self')}
             >
               <Phone className="w-5 h-5 mr-2" />
               Call Now: +91 98765 43210

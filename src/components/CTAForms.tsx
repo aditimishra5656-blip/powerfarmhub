@@ -97,7 +97,14 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant} className={variant === "default" ? "bg-powertrac-orange hover:bg-powertrac-orange/90" : ""}>
+        <Button 
+          variant={variant} 
+          className={
+            variant === "default" 
+              ? "bg-powertrac-orange hover:bg-powertrac-orange/90 text-white w-full" 
+              : "w-full"
+          }
+        >
           {triggerText}
         </Button>
       </DialogTrigger>
@@ -258,7 +265,16 @@ export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "ou
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
       <DialogTrigger asChild>
-        <Button variant={variant}>
+        <Button 
+          variant={variant}
+          className={
+            variant === "default" 
+              ? "bg-powertrac-orange hover:bg-powertrac-orange/90 text-white font-bold text-lg px-8 py-4 shadow-hover"
+              : variant === "outline"
+              ? "border-white text-white hover:bg-white hover:text-powertrac-blue font-bold text-lg px-8 py-4"
+              : ""
+          }
+        >
           {triggerText}
         </Button>
       </DialogTrigger>
