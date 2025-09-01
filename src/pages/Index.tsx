@@ -12,57 +12,28 @@ import Footer from "@/components/Footer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import { QuoteForm, ServiceBookingForm } from "@/components/CTAForms";
 
-// Assets
-import tractor439 from "@/assets/tractor-439.jpg";
-import tractor451 from "@/assets/tractor-451.jpg";
-import tractor434 from "@/assets/tractor-434.jpg";
+import { useEffect, useState } from "react";
+import { supabase } from "@/integrations/supabase/client";
 
 const Index = () => {
-  const featuredTractors = [
-    {
-      name: "PowerTrac 439 DS",
-      image: tractor439,
-      hp: "42 HP",
-      fuelEfficiency: "3.8 L/hr",
-      liftingCapacity: "1500 kg",
-      priceRange: "₹6.25 - ₹6.85 Lakh",
-      features: [
-        "Power Steering Standard",
-        "Advanced Hydraulic System", 
-        "Heavy Duty Transmission",
-        "Superior Fuel Economy"
-      ],
-      isPopular: true
-    },
-    {
-      name: "PowerTrac 451 DS Plus",
-      image: tractor451,
-      hp: "50 HP", 
-      fuelEfficiency: "4.2 L/hr",
-      liftingCapacity: "1800 kg",
-      priceRange: "₹7.15 - ₹7.95 Lakh",
-      features: [
-        "Digital Display Panel",
-        "Advanced PTO System",
-        "Premium Comfort Seat",
-        "Enhanced Hydraulics"
-      ]
-    },
-    {
-      name: "PowerTrac 434 DS",
-      image: tractor434,
-      hp: "38 HP",
-      fuelEfficiency: "3.5 L/hr", 
-      liftingCapacity: "1200 kg",
-      priceRange: "₹5.65 - ₹6.25 Lakh",
-      features: [
-        "Compact Design",
-        "Easy Maneuverability",
-        "Cost Effective",
-        "Reliable Performance"
-      ]
-    }
-  ];
+  const [featuredTractors, setFeaturedTractors] = useState<any[]>([]);
+  const [loadingFeatured, setLoadingFeatured] = useState(true);
+
+  useEffect(() => {
+    const loadFeatured = async () => {
+      const { data, error } = await supabase
+        .from('tractors')
+        .select('*')
+        .eq('is_popular', true)
+        .order('created_at', { ascending: false })
+        .limit(3);
+      if (!error) {
+        setFeaturedTractors(data || []);
+      }
+      setLoadingFeatured(false);
+    };
+    loadFeatured();
+  }, []);
 
   const keyServices = [
     {
@@ -130,9 +101,25 @@ const Index = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {featuredTractors.map((tractor, index) => (
-              <TractorCard key={index} {...tractor} />
-            ))}
+            {loadingFeatured ? (
+              <div className="col-span-full text-center text-muted-foreground">Loading tractors...</div>
+            ) : featuredTractors.length === 0 ? (
+              <div className="col-span-full text-center text-muted-foreground">No featured tractors yet.</div>
+            ) : (
+              featuredTractors.map((t) => (
+                <TractorCard
+                  key={t.id}
+                  name={t.name}
+                  image={t.image_url || "/placeholder.svg"}
+                  hp={t.hp}
+                  fuelEfficiency={t.fuel_efficiency}
+                  liftingCapacity={t.lifting_capacity}
+                  priceRange={t.price_range}
+                  features={t.features || []}
+                  isPopular={t.is_popular}
+                />
+              ))
+            )}
           </div>
 
           <div className="text-center mt-12">
