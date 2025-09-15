@@ -107,7 +107,7 @@ const TractorCard = ({
           variant="outline" 
           size="icon" 
           className="border-powertrac-green text-powertrac-green hover:bg-powertrac-green hover:text-white shrink-0"
-          onClick={() => window.open('tel:+919876543210', '_self')}
+          onClick={() => window.location.href = 'tel:+919876543210'}
           title="Call for instant support"
         >
           <Phone className="w-4 h-4" />
