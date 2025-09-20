@@ -3,6 +3,7 @@ import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge";
 import { Fuel, Gauge, Weight, Eye, Phone } from "lucide-react";
 import { QuoteForm } from "@/components/CTAForms";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface TractorCardProps {
   name: string;
@@ -25,12 +26,13 @@ const TractorCard = ({
   features,
   isPopular = false 
 }: TractorCardProps) => {
+  const { t } = useLanguage();
   return (
     <Card className="group hover:shadow-hover transition-all duration-300 transform hover:-translate-y-2 bg-gradient-card border-0">
       {isPopular && (
         <div className="relative">
           <Badge className="absolute -top-2 left-4 bg-powertrac-orange text-white z-10">
-            Most Popular
+            {t('tractors.mostPopular')}
           </Badge>
         </div>
       )}
@@ -64,27 +66,27 @@ const TractorCard = ({
               <Gauge className="w-5 h-5 text-powertrac-blue" />
             </div>
             <div className="text-sm font-semibold text-powertrac-blue">{hp}</div>
-            <div className="text-xs text-muted-foreground">Horsepower</div>
+            <div className="text-xs text-muted-foreground">{t('tractors.horsepower')}</div>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-2">
               <Fuel className="w-5 h-5 text-powertrac-green" />
             </div>
             <div className="text-sm font-semibold text-powertrac-green">{fuelEfficiency}</div>
-            <div className="text-xs text-muted-foreground">Fuel Efficiency</div>
+            <div className="text-xs text-muted-foreground">{t('tractors.fuelEfficiency')}</div>
           </div>
           <div className="text-center">
             <div className="flex items-center justify-center mb-2">
               <Weight className="w-5 h-5 text-powertrac-orange" />
             </div>
             <div className="text-sm font-semibold text-powertrac-orange">{liftingCapacity}</div>
-            <div className="text-xs text-muted-foreground">Lifting Capacity</div>
+            <div className="text-xs text-muted-foreground">{t('tractors.liftingCapacity')}</div>
           </div>
         </div>
 
         {/* Features */}
         <div className="space-y-2">
-          <div className="text-sm font-medium text-powertrac-gray">Key Features:</div>
+          <div className="text-sm font-medium text-powertrac-gray">{t('tractors.keyFeatures')}</div>
           <ul className="text-sm text-muted-foreground space-y-1">
             {features.slice(0, 3).map((feature, index) => (
               <li key={index} className="flex items-center gap-2">
@@ -99,7 +101,7 @@ const TractorCard = ({
       <CardFooter className="p-6 pt-0 flex gap-2">
         <div className="flex-1">
           <QuoteForm 
-            triggerText="Get Quote" 
+            triggerText={t('tractors.getQuote')} 
             variant="default"
           />
         </div>
@@ -108,7 +110,7 @@ const TractorCard = ({
           size="icon" 
           className="border-powertrac-green text-powertrac-green hover:bg-powertrac-green hover:text-white shrink-0"
           onClick={() => window.location.href = 'tel:+919876543210'}
-          title="Call for instant support"
+          title={t('tractors.callForSupport')}
         >
           <Phone className="w-4 h-4" />
         </Button>

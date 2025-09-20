@@ -9,6 +9,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, MessageSquare, Calendar } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface QuoteFormData {
   name: string;
@@ -33,6 +34,7 @@ interface ServiceFormData {
 export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" as any }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<QuoteFormData>({
     name: '',
     phone: '',
@@ -68,7 +70,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
       if (error) throw error;
 
       toast({
-        title: "Quote Request Submitted!",
+        title: t('forms.quote.success'),
         description: "We'll contact you soon with the best pricing for your PowerTrac tractor.",
       });
 
@@ -86,7 +88,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
       console.error('Error submitting quote:', error);
       toast({
         title: "Error",
-        description: "Failed to submit quote request. Please try again.",
+        description: t('forms.quote.error'),
         variant: "destructive",
       });
     } finally {
@@ -110,12 +112,12 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-powertrac-blue">Get Your Quote</DialogTitle>
+          <DialogTitle className="text-powertrac-blue">{t('forms.quote.title')}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="name">Full Name *</Label>
+              <Label htmlFor="name">{t('forms.quote.name')} *</Label>
               <Input
                 id="name"
                 name="name"
@@ -125,7 +127,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone">Phone *</Label>
+              <Label htmlFor="phone">{t('forms.quote.phone')} *</Label>
               <Input
                 id="phone"
                 name="phone"
@@ -137,7 +139,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
           </div>
           
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">{t('forms.quote.email')}</Label>
             <Input
               id="email"
               name="email"
@@ -148,7 +150,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="tractor_model">Tractor Model *</Label>
+            <Label htmlFor="tractor_model">{t('forms.quote.tractorModel')} *</Label>
             <Select name="tractor_model" value={formData.tractor_model} onValueChange={(value) => setFormData(prev => ({ ...prev, tractor_model: value }))}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a tractor model" />
@@ -162,7 +164,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="location">Location</Label>
+            <Label htmlFor="location">{t('forms.quote.location')}</Label>
             <Input
               id="location"
               name="location"
@@ -173,7 +175,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="message">Additional Requirements</Label>
+            <Label htmlFor="message">{t('forms.quote.message')}</Label>
             <Textarea
               id="message"
               name="message"
@@ -184,7 +186,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
           </div>
 
           <Button type="submit" disabled={loading} className="w-full bg-powertrac-orange hover:bg-powertrac-orange/90">
-            {loading ? 'Submitting...' : 'Submit Quote Request'}
+            {loading ? 'Submitting...' : t('forms.quote.submit')}
           </Button>
         </form>
       </DialogContent>
@@ -195,6 +197,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
 export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "outline" as any }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { t } = useLanguage();
   const [formData, setFormData] = useState<ServiceFormData>({
     name: '',
     phone: '',
@@ -234,7 +237,7 @@ export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "ou
       if (error) throw error;
 
       toast({
-        title: "Service Booked!",
+        title: t('forms.demo.success'),
         description: "Your service request has been submitted. We'll contact you to confirm the appointment.",
       });
 
@@ -254,7 +257,7 @@ export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "ou
       console.error('Error booking service:', error);
       toast({
         title: "Error",
-        description: "Failed to book service. Please try again.",
+        description: t('forms.demo.error'),
         variant: "destructive",
       });
     } finally {
@@ -280,7 +283,7 @@ export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "ou
       </DialogTrigger>
       <DialogContent className="max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-powertrac-blue">Book Service</DialogTitle>
+          <DialogTitle className="text-powertrac-blue">{t('forms.demo.title')}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">

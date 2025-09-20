@@ -3,18 +3,21 @@ import { Menu, X, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { QuoteForm } from "@/components/CTAForms";
+import { useLanguage } from "@/contexts/LanguageContext";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { t } = useLanguage();
 
   const navItems = [
-    { name: "Home", href: "/" },
-    { name: "About", href: "/about" },
-    { name: "Tractors", href: "/tractors" },
-    { name: "Services", href: "/services" },
-    { name: "Finance", href: "/finance" },
-    { name: "Testimonials", href: "/testimonials" },
-    { name: "Contact", href: "/contact" }
+    { name: t('nav.home'), href: "/" },
+    { name: t('nav.about'), href: "/about" },
+    { name: t('nav.tractors'), href: "/tractors" },
+    { name: t('nav.services'), href: "/services" },
+    { name: t('nav.finance'), href: "/finance" },
+    { name: t('nav.testimonials'), href: "/testimonials" },
+    { name: t('nav.contact'), href: "/contact" }
   ];
 
   return (
@@ -25,17 +28,18 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <Phone className="w-4 h-4" />
-              <span>+91 98765 43210</span>
+              <span>{t('header.phone')}</span>
             </div>
             <div className="flex items-center gap-1">
               <MapPin className="w-4 h-4" />
-              <span>Visit our showroom today!</span>
+              <span>{t('header.visitShowroom')}</span>
             </div>
           </div>
           <div className="hidden md:flex items-center gap-4">
-            <span>Authorized PowerTrac Dealer | Best Prices Guaranteed</span>
+            <span>{t('header.authorizedDealer')}</span>
+            <LanguageSwitcher />
             <Button asChild variant="outline" size="sm" className="text-powertrac-blue border-white hover:bg-white hover:text-powertrac-blue">
-              <Link to="/auth">Admin Login</Link>
+              <Link to="/auth">{t('header.adminLogin')}</Link>
             </Button>
           </div>
         </div>
@@ -69,7 +73,7 @@ const Header = () => {
             {/* CTA Button & Mobile Menu Toggle */}
             <div className="flex items-center gap-4">
               <div className="hidden md:block">
-                <QuoteForm triggerText="Get Quote Now" />
+                <QuoteForm triggerText={t('header.getQuote')} />
               </div>
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -94,8 +98,9 @@ const Header = () => {
                     {item.name}
                   </Link>
                 ))}
-                <div className="mx-4">
-                  <QuoteForm triggerText="Get Quote Now" />
+                <div className="mx-4 flex flex-col gap-2">
+                  <QuoteForm triggerText={t('header.getQuote')} />
+                  <LanguageSwitcher />
                 </div>
               </nav>
             </div>

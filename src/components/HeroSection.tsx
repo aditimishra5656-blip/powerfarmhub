@@ -3,8 +3,10 @@ import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Star, Phone } from "lucide-react";
 import heroTractor from "@/assets/hero-tractor.jpg";
 import { ServiceBookingForm } from "@/components/CTAForms";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const HeroSection = () => {
+  const { t } = useLanguage();
   return (
     <section id="home" className="relative min-h-[90vh] bg-gradient-hero overflow-hidden">
       {/* Background Image with Overlay */}
@@ -27,17 +29,15 @@ const HeroSection = () => {
 
           {/* Headline */}
           <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            Premium
+            {t('hero.title')}
             <span className="text-powertrac-orange"> PowerTrac</span>
             <br />
-            Tractors for Every Farm
+            {t('hero.subtitle')}
           </h1>
 
           {/* Description */}
           <p className="text-xl mb-8 text-white/90 leading-relaxed">
-            Discover India's most trusted tractor brand with unmatched power, 
-            efficiency, and reliability. Get the best deals, expert service, 
-            and financing options at our authorized dealership.
+            {t('hero.description')}
           </p>
 
           {/* Features List */}
@@ -58,7 +58,7 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <ServiceBookingForm 
-              triggerText="Book Free Demo Today"
+              triggerText={t('hero.bookDemo')}
               variant="default"
             />
             <Button 
@@ -68,7 +68,7 @@ const HeroSection = () => {
               onClick={() => window.location.href = 'tel:+919876543210'}
             >
               <Phone className="w-5 h-5 mr-2" />
-              Call Now: +91 98765 43210
+              {t('hero.callNow')}
             </Button>
           </div>
 
