@@ -17,6 +17,7 @@ interface Tractor {
   lifting_capacity: string;
   price_range: string;
   features: string[];
+  labels: string[];
   image_url?: string;
   is_popular: boolean;
 }
@@ -39,6 +40,8 @@ const TractorForm = ({ tractor, onSuccess }: TractorFormProps) => {
   });
   const [features, setFeatures] = useState<string[]>([]);
   const [newFeature, setNewFeature] = useState('');
+  const [labels, setLabels] = useState<string[]>([]);
+  const [newLabel, setNewLabel] = useState('');
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -57,6 +60,7 @@ const TractorForm = ({ tractor, onSuccess }: TractorFormProps) => {
         is_popular: tractor.is_popular,
       });
       setFeatures(tractor.features || []);
+      setLabels(tractor.labels || []);
     }
   }, [tractor]);
 
@@ -124,6 +128,17 @@ const TractorForm = ({ tractor, onSuccess }: TractorFormProps) => {
     setFeatures(prev => prev.filter((_, i) => i !== index));
   };
 
+  const addLabel = () => {
+    if (newLabel.trim() && !labels.includes(newLabel.trim())) {
+      setLabels(prev => [...prev, newLabel.trim()]);
+      setNewLabel('');
+    }
+  };
+
+  const removeLabel = (index: number) => {
+    setLabels(prev => prev.filter((_, i) => i !== index));
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -132,6 +147,7 @@ const TractorForm = ({ tractor, onSuccess }: TractorFormProps) => {
       const data = {
         ...formData,
         features,
+        labels,
       };
 
       if (tractor?.id) {
@@ -340,6 +356,38 @@ const TractorForm = ({ tractor, onSuccess }: TractorFormProps) => {
               </button>
             </Badge>
           ))}
+        </div>
+      </div>
+
+      <div className="space-y-4">
+        <Label>Labels</Label>
+        <div className="flex gap-2">
+          <Input
+            value={newLabel}
+            onChange={(e) => setNewLabel(e.target.value)}
+            placeholder="Add a label (e.g., In Stock, Out of Stock, Popular)"
+            onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addLabel())}
+          />
+          <Button type="button" onClick={addLabel} size="sm">
+            <Plus className="w-4 h-4" />
+          </Button>
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {labels.map((label, index) => (
+            <Badge key={index} variant="outline" className="flex items-center gap-1">
+              {label}
+              <button
+                type="button"
+                onClick={() => removeLabel(index)}
+                className="ml-1 hover:bg-destructive hover:text-destructive-foreground rounded-full p-0.5"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </Badge>
+          ))}
+        </div>
+        <div className="text-xs text-muted-foreground">
+          Common labels: In Stock, Out of Stock, Popular, New Arrival, Limited Edition, Best Seller
         </div>
       </div>
 

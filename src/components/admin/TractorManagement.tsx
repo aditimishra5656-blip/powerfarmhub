@@ -18,6 +18,7 @@ interface Tractor {
   lifting_capacity: string;
   price_range: string;
   features: string[];
+  labels: string[];
   image_url?: string;
   is_popular: boolean;
   created_at: string;
@@ -159,6 +160,15 @@ const TractorManagement = () => {
                 <p><span className="font-medium">Fuel Efficiency:</span> {tractor.fuel_efficiency}</p>
                 <p><span className="font-medium">Price:</span> {tractor.price_range}</p>
               </div>
+              {tractor.labels && tractor.labels.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {tractor.labels.map((label, index) => (
+                    <Badge key={index} variant="outline" className="text-xs">
+                      {label}
+                    </Badge>
+                  ))}
+                </div>
+              )}
               <div className="flex gap-2">
                 <Button
                   size="sm"

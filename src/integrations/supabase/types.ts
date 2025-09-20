@@ -170,6 +170,7 @@ export type Database = {
           id: string
           image_url: string | null
           is_popular: boolean | null
+          labels: string[] | null
           lifting_capacity: string
           model: string
           name: string
@@ -184,6 +185,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_popular?: boolean | null
+          labels?: string[] | null
           lifting_capacity: string
           model: string
           name: string
@@ -198,6 +200,7 @@ export type Database = {
           id?: string
           image_url?: string | null
           is_popular?: boolean | null
+          labels?: string[] | null
           lifting_capacity?: string
           model?: string
           name?: string
