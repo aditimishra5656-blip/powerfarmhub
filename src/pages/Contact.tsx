@@ -205,8 +205,10 @@ const Contact = () => {
                             size="sm"
                             className="text-powertrac-blue border-powertrac-blue hover:bg-powertrac-blue hover:text-white"
                             onClick={() => {
-                              const encodedAddress = encodeURIComponent(contactInfo.showroom_address);
-                              window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
+                              if (contactInfo?.showroom_address) {
+                                const encodedAddress = encodeURIComponent(contactInfo.showroom_address.trim());
+                                window.open(`https://www.google.com/maps/search/?api=1&query=${encodedAddress}`, '_blank');
+                              }
                             }}
                           >
                             <Navigation className="w-4 h-4 mr-2" />

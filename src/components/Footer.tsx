@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { 
   Phone, 
@@ -9,8 +10,39 @@ import {
   Youtube,
   MessageCircle
 } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
+
+interface ContactInfo {
+  phone: string;
+  email: string;
+  showroom_address: string;
+  opening_hours: string;
+}
 
 const Footer = () => {
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+
+  useEffect(() => {
+    fetchContactInfo();
+  }, []);
+
+  const fetchContactInfo = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('contact_info')
+        .select('*')
+        .limit(1)
+        .maybeSingle();
+
+      if (error && error.code !== 'PGRST116') throw error;
+      
+      if (data) {
+        setContactInfo(data);
+      }
+    } catch (error) {
+      console.error('Error fetching contact info:', error);
+    }
+  };
   return (
     <footer className="bg-powertrac-gray text-white">
       {/* Main Footer Content */}
@@ -46,29 +78,29 @@ const Footer = () => {
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-powertrac-orange mt-0.5" />
                 <div>
-                  <div className="font-medium">+91 98765 43210</div>
+                  <div className="font-medium">{contactInfo?.phone || "+91 98765 43210"}</div>
                   <div className="text-sm text-white/70">Sales & Support</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Mail className="w-5 h-5 text-powertrac-orange mt-0.5" />
                 <div>
-                  <div className="font-medium">info@powertracdealer.com</div>
+                  <div className="font-medium">{contactInfo?.email || "info@powertracdealer.com"}</div>
                   <div className="text-sm text-white/70">Email Us Anytime</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <MapPin className="w-5 h-5 text-powertrac-orange mt-0.5" />
                 <div>
-                  <div className="font-medium">123 Industrial Road</div>
-                  <div className="text-sm text-white/70">Sector 15, Agricultural Hub, City - 110001</div>
+                  <div className="font-medium">{contactInfo?.showroom_address || "123 Industrial Road"}</div>
+                  <div className="text-sm text-white/70">{!contactInfo?.showroom_address && "Sector 15, Agricultural Hub, City - 110001"}</div>
                 </div>
               </div>
               <div className="flex items-start gap-3">
                 <Clock className="w-5 h-5 text-powertrac-orange mt-0.5" />
                 <div>
-                  <div className="font-medium">Mon - Sat: 9:00 AM - 7:00 PM</div>
-                  <div className="text-sm text-white/70">Sunday: 10:00 AM - 5:00 PM</div>
+                  <div className="font-medium whitespace-pre-line">{contactInfo?.opening_hours || "Mon - Sat: 9:00 AM - 7:00 PM"}</div>
+                  <div className="text-sm text-white/70">{!contactInfo?.opening_hours && "Sunday: 10:00 AM - 5:00 PM"}</div>
                 </div>
               </div>
             </div>
