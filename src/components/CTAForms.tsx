@@ -5,7 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Phone, Mail, MessageSquare, Calendar } from "lucide-react";
@@ -113,6 +113,9 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="text-powertrac-blue">{t('forms.quote.title')}</DialogTitle>
+          <DialogDescription>
+            Fill out the form below to get a personalized quote for your PowerTrac tractor.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
@@ -284,6 +287,9 @@ export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "ou
       <DialogContent className="max-w-md">
         <DialogHeader>
           <DialogTitle className="text-powertrac-blue">{t('forms.demo.title')}</DialogTitle>
+          <DialogDescription>
+            Schedule a service appointment for your PowerTrac tractor.
+          </DialogDescription>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
