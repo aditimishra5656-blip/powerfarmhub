@@ -110,7 +110,7 @@ export const QuoteForm = ({ triggerText = "Get Quote Now", variant = "default" a
           {triggerText}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-powertrac-blue">{t('forms.quote.title')}</DialogTitle>
           <DialogDescription>
@@ -284,7 +284,7 @@ export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "ou
           {triggerText}
         </Button>
       </DialogTrigger>
-      <DialogContent className="max-w-md">
+      <DialogContent className="max-w-md max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-powertrac-blue">{t('forms.demo.title')}</DialogTitle>
           <DialogDescription>

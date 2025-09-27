@@ -8,6 +8,8 @@ import { MapPin, TrendingUp, CheckCircle, Phone, Mail, Clock, Navigation } from 
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
+import { useToast } from "@/hooks/use-toast";
+import { QuoteForm } from "@/components/CTAForms";
 
 interface ContactInfo {
   phone: string;
@@ -24,6 +26,8 @@ const Contact = () => {
     tractorModel: "",
     message: ""
   });
+  const [isLoading, setIsLoading] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     fetchContactInfo();
@@ -54,6 +58,48 @@ const Contact = () => {
     });
   };
 
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const { error } = await supabase
+        .from('quotes')
+        .insert([{
+          name: formData.name,
+          phone: formData.phone,
+          email: '',
+          tractor_model: formData.tractorModel,
+          location: '',
+          message: formData.message
+        }]);
+
+      if (error) throw error;
+
+      toast({
+        title: "Quote Request Sent!",
+        description: "We'll contact you soon with the best pricing for your PowerTrac tractor.",
+      });
+
+      // Reset form
+      setFormData({
+        name: "",
+        phone: "",
+        tractorModel: "",
+        message: ""
+      });
+    } catch (error) {
+      console.error('Error submitting quote:', error);
+      toast({
+        title: "Error",
+        description: "Failed to send quote request. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -78,35 +124,48 @@ const Contact = () => {
               <CardHeader>
                 <CardTitle className="text-2xl text-powertrac-blue">Send Us Your Inquiry</CardTitle>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <Input
-                  placeholder="Your Full Name"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                />
-                <Input
-                  placeholder="Phone Number"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                />
-                <Input
-                  placeholder="Interested Tractor Model (Optional)"
-                  name="tractorModel"
-                  value={formData.tractorModel}
-                  onChange={handleInputChange}
-                />
-                <Textarea
-                  placeholder="Tell us about your requirements..."
-                  name="message"
-                  value={formData.message}
-                  onChange={handleInputChange}
-                  rows={4}
-                />
-                <Button className="w-full bg-powertrac-orange hover:bg-powertrac-orange/90 text-white text-lg py-3">
-                  Get Free Quote & Demo
-                </Button>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-4">
+                  <Input
+                    placeholder="Your Full Name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <Input
+                    placeholder="Phone Number"
+                    name="phone"
+                    value={formData.phone}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <Input
+                    placeholder="Interested Tractor Model (Optional)"
+                    name="tractorModel"
+                    value={formData.tractorModel}
+                    onChange={handleInputChange}
+                  />
+                  <Textarea
+                    placeholder="Tell us about your requirements..."
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    rows={4}
+                  />
+                  <Button 
+                    type="submit" 
+                    disabled={isLoading}
+                    className="w-full bg-powertrac-orange hover:bg-powertrac-orange/90 text-white text-lg py-3"
+                  >
+                    {isLoading ? "Sending..." : "Get Free Quote & Demo"}
+                  </Button>
+                </form>
+                
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-muted-foreground mb-3">Or use our quick quote form</p>
+                  <QuoteForm triggerText="Quick Quote Form" variant="outline" />
+                </div>
               </CardContent>
             </Card>
 
