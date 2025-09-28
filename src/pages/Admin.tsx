@@ -8,8 +8,9 @@ import TractorManagement from "@/components/admin/TractorManagement";
 import ContactInfoManagement from "@/components/admin/ContactInfoManagement";
 import QuotesManagement from "@/components/admin/QuotesManagement";
 import ServiceBookingsManagement from "@/components/admin/ServiceBookingsManagement";
+import HomepageManagement from "@/components/admin/HomepageManagement";
 import { useAuth } from "@/contexts/AuthContext";
-import { Tractor, Wrench, MessageSquare, BarChart3, LogOut, User } from "lucide-react";
+import { Tractor, Wrench, MessageSquare, BarChart3, LogOut, User, Home } from "lucide-react";
 
 const Admin = () => {
   const { user, signOut } = useAuth();
@@ -46,8 +47,12 @@ const Admin = () => {
             </p>
           </div>
 
-          <Tabs defaultValue="tractors" className="w-full">
-            <TabsList className="grid w-full grid-cols-5 mb-8">
+          <Tabs defaultValue="homepage" className="w-full">
+            <TabsList className="grid w-full grid-cols-6 mb-8">
+              <TabsTrigger value="homepage" className="flex items-center gap-2">
+                <Home className="w-4 h-4" />
+                Homepage
+              </TabsTrigger>
               <TabsTrigger value="tractors" className="flex items-center gap-2">
                 <Tractor className="w-4 h-4" />
                 Tractors
@@ -70,9 +75,13 @@ const Admin = () => {
               </TabsTrigger>
             </TabsList>
 
-            <TabsContent value="tractors">
-              <TractorManagement />
-            </TabsContent>
+          <TabsContent value="homepage">
+            <HomepageManagement />
+          </TabsContent>
+
+          <TabsContent value="tractors">
+            <TractorManagement />
+          </TabsContent>
 
             <TabsContent value="contact">
               <ContactInfoManagement />

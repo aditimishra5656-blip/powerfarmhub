@@ -1,18 +1,79 @@
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { CheckCircle, Star, Phone } from "lucide-react";
 import heroTractor from "@/assets/hero-tractor.jpg";
 import { ServiceBookingForm } from "@/components/CTAForms";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { supabase } from "@/integrations/supabase/client";
+
+interface HeroContent {
+  title: string;
+  subtitle: string;
+  description: string;
+  background_image: string;
+  badge_text: string;
+  features: string[];
+  cta_primary: string;
+  cta_secondary: string;
+  trust_indicators: {
+    rating: string;
+    experience: string;
+    customers: string;
+  };
+}
 
 const HeroSection = () => {
   const { t } = useLanguage();
+  const [heroContent, setHeroContent] = useState<HeroContent | null>(null);
+
+  useEffect(() => {
+    fetchHeroContent();
+  }, []);
+
+  const fetchHeroContent = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('homepage_content')
+        .select('content')
+        .eq('section_name', 'hero_section')
+        .eq('is_active', true)
+        .single();
+
+      if (error) throw error;
+      if (data?.content) {
+        setHeroContent(data.content as unknown as HeroContent);
+      }
+    } catch (error) {
+      console.error('Error fetching hero content:', error);
+      // Fallback to default content
+      setHeroContent({
+        title: "Premium Quality",
+        subtitle: "Tractors for Modern Farming",
+        description: "Discover our range of high-performance PowerTrac tractors designed for efficiency, durability, and maximum productivity on your farm.",
+        background_image: heroTractor,
+        badge_text: "⭐ #1 PowerTrac Dealer in the Region",
+        features: ["Best Price Guarantee", "Expert After-Sales Service", "Easy Finance Options", "Free On-Site Demo"],
+        cta_primary: "Book Free Demo",
+        cta_secondary: "Call Now",
+        trust_indicators: {
+          rating: "4.8/5 Customer Rating",
+          experience: "15+ Years of Trusted Service",
+          customers: "5000+ Happy Farmers"
+        }
+      });
+    }
+  };
+
+  if (!heroContent) {
+    return <div className="min-h-[90vh] bg-gradient-hero"></div>;
+  }
   return (
     <section id="home" className="relative min-h-[90vh] bg-gradient-hero overflow-hidden">
       {/* Background Image with Overlay */}
       <div className="absolute inset-0">
         <img
-          src={heroTractor}
+          src={heroContent.background_image}
           alt="PowerTrac Tractor in Agricultural Field"
           className="w-full h-full object-cover"
         />
@@ -24,30 +85,25 @@ const HeroSection = () => {
         <div className="max-w-2xl text-white">
           {/* Badge */}
           <Badge className="mb-6 bg-powertrac-orange text-white border-none">
-            ⭐ #1 PowerTrac Dealer in the Region
+            {heroContent.badge_text}
           </Badge>
 
           {/* Headline */}
           <h1 className="text-5xl lg:text-6xl font-bold leading-tight mb-6">
-            {t('hero.title')}
+            {heroContent.title}
             <span className="text-powertrac-orange"> PowerTrac</span>
             <br />
-            {t('hero.subtitle')}
+            {heroContent.subtitle}
           </h1>
 
           {/* Description */}
           <p className="text-xl mb-8 text-white/90 leading-relaxed">
-            {t('hero.description')}
+            {heroContent.description}
           </p>
 
           {/* Features List */}
           <div className="flex flex-wrap gap-4 mb-8">
-            {[
-              "Best Price Guarantee",
-              "Expert After-Sales Service", 
-              "Easy Finance Options",
-              "Free On-Site Demo"
-            ].map((feature) => (
+            {heroContent.features.map((feature) => (
               <div key={feature} className="flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-4 py-2">
                 <CheckCircle className="w-4 h-4 text-powertrac-orange" />
                 <span className="text-sm font-medium">{feature}</span>
@@ -58,7 +114,7 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 mb-8">
             <ServiceBookingForm 
-              triggerText={t('hero.bookDemo')}
+              triggerText={heroContent.cta_primary}
               variant="default"
             />
             <Button 
@@ -68,7 +124,7 @@ const HeroSection = () => {
               onClick={() => window.location.href = 'tel:+919876543210'}
             >
               <Phone className="w-5 h-5 mr-2" />
-              {t('hero.callNow')}
+              {heroContent.cta_secondary}
             </Button>
           </div>
 
@@ -80,13 +136,13 @@ const HeroSection = () => {
                   <Star key={i} className="w-4 h-4 fill-powertrac-orange text-powertrac-orange" />
                 ))}
               </div>
-              <span className="text-sm">4.8/5 Customer Rating</span>
+              <span className="text-sm">{heroContent.trust_indicators.rating}</span>
             </div>
             <div className="text-sm">
-              <strong>15+ Years</strong> of Trusted Service
+              <strong>{heroContent.trust_indicators.experience}</strong>
             </div>
             <div className="text-sm">
-              <strong>5000+</strong> Happy Farmers
+              <strong>{heroContent.trust_indicators.customers}</strong>
             </div>
           </div>
         </div>

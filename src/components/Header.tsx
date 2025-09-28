@@ -6,8 +6,17 @@ import { QuoteForm } from "@/components/CTAForms";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
 
+interface HeaderContent {
+  company_name: string;
+  logo_text: string;
+  contact_phone: string;
+  contact_email: string;
+  top_bar_message: string;
+}
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [headerContent, setHeaderContent] = useState<HeaderContent | null>(null);
   const { t } = useLanguage();
 
   const navItems = [
@@ -20,8 +29,19 @@ const Header = () => {
     { name: t('nav.contact'), href: "/contact" }
   ];
 
+  if (!headerContent) {
+    return (
+      <header className="sticky top-0 z-50 bg-white shadow-sm">
+        <div className="bg-powertrac-blue text-white py-2">
+          <div className="container mx-auto px-4 flex justify-between items-center text-sm">
+            <span>Loading...</span>
+          </div>
+        </div>
+      </header>
+    );
+  }
   return (
-    <>
+    <header className="sticky top-0 z-50 bg-white shadow-sm">
       {/* Top Bar */}
       <div className="bg-powertrac-blue text-white py-2 px-4">
         <div className="container mx-auto flex justify-between items-center text-sm">
@@ -46,7 +66,7 @@ const Header = () => {
       </div>
 
       {/* Main Header */}
-      <header className="bg-white shadow-lg sticky top-0 z-50">
+      <div className="bg-white shadow-lg">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center py-4">
             {/* Logo */}
@@ -106,8 +126,8 @@ const Header = () => {
             </div>
           )}
         </div>
-      </header>
-    </>
+      </div>
+    </header>
   );
 };
 
