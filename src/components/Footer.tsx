@@ -64,8 +64,8 @@ const Footer = () => {
         .eq('is_active', true)
         .maybeSingle();
 
-      if (!error && data?.content) {
-        setFooterContent(prev => ({ ...prev, ...data.content }));
+      if (!error && data?.content && typeof data.content === 'object') {
+        setFooterContent(prev => ({ ...prev, ...(data.content as Partial<FooterContent>) }));
       }
     } catch (error) {
       console.error('Error fetching footer content:', error);

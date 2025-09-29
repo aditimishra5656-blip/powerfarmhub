@@ -35,8 +35,8 @@ const Header = () => {
           .eq('section_name', 'header_content')
           .eq('is_active', true)
           .maybeSingle();
-        if (!error && data?.content) {
-          setHeaderContent(prev => ({ ...prev, ...data.content }));
+        if (!error && data?.content && typeof data.content === 'object') {
+          setHeaderContent(prev => ({ ...prev, ...(data.content as Partial<HeaderContent>) }));
         }
       } catch (err) {
         console.error('Error fetching header content:', err);
