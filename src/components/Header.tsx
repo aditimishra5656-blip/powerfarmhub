@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Menu, X, Phone, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { QuoteForm } from "@/components/CTAForms";
 import { useLanguage } from "@/contexts/LanguageContext";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { supabase } from "@/integrations/supabase/client";
 
 interface HeaderContent {
   company_name: string;
@@ -16,8 +17,33 @@ interface HeaderContent {
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [headerContent, setHeaderContent] = useState<HeaderContent | null>(null);
+  const [headerContent, setHeaderContent] = useState<HeaderContent>({
+    company_name: "PowerTrac",
+    logo_text: "PowerTrac",
+    contact_phone: "+91 98765 43210",
+    contact_email: "info@powertracdealer.com",
+    top_bar_message: "Authorized PowerTrac Dealer",
+  });
   const { t } = useLanguage();
+
+  useEffect(() => {
+    const fetchHeaderContent = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('homepage_content')
+          .select('content')
+          .eq('section_name', 'header_content')
+          .eq('is_active', true)
+          .maybeSingle();
+        if (!error && data?.content) {
+          setHeaderContent(prev => ({ ...prev, ...data.content }));
+        }
+      } catch (err) {
+        console.error('Error fetching header content:', err);
+      }
+    };
+    fetchHeaderContent();
+  }, []);
 
   const navItems = [
     { name: t('nav.home'), href: "/" },
@@ -29,17 +55,6 @@ const Header = () => {
     { name: t('nav.contact'), href: "/contact" }
   ];
 
-  if (!headerContent) {
-    return (
-      <header className="sticky top-0 z-50 bg-white shadow-sm">
-        <div className="bg-powertrac-blue text-white py-2">
-          <div className="container mx-auto px-4 flex justify-between items-center text-sm">
-            <span>Loading...</span>
-          </div>
-        </div>
-      </header>
-    );
-  }
   return (
     <header className="sticky top-0 z-50 bg-white shadow-sm">
       {/* Top Bar */}
@@ -56,7 +71,7 @@ const Header = () => {
             </div>
           </div>
           <div className="hidden md:flex items-center gap-4">
-            <span>{t('header.authorizedDealer')}</span>
+            <span>{headerContent.top_bar_message}</span>
             <LanguageSwitcher />
             <Button asChild variant="outline" size="sm" className="text-powertrac-blue border-white hover:bg-white hover:text-powertrac-blue">
               <Link to="/auth">{t('header.adminLogin')}</Link>
@@ -72,7 +87,7 @@ const Header = () => {
             {/* Logo */}
             <Link to="/" className="flex items-center">
               <div className="text-2xl font-bold text-powertrac-blue">
-                Power<span className="text-powertrac-orange">Trac</span>
+                {headerContent.logo_text}
                 <div className="text-sm font-normal text-powertrac-gray">Authorized Dealer</div>
               </div>
             </Link>

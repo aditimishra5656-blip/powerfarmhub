@@ -38,7 +38,7 @@ const HeroSection = () => {
         .select('content')
         .eq('section_name', 'hero_section')
         .eq('is_active', true)
-        .single();
+        .maybeSingle();
 
       if (error) throw error;
       if (data?.content) {

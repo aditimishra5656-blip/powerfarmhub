@@ -19,11 +19,22 @@ interface ContactInfo {
   opening_hours: string;
 }
 
+interface FooterContent {
+  company_description?: string;
+  social_links?: {
+    facebook?: string;
+    instagram?: string;
+    youtube?: string;
+  };
+}
+
 const Footer = () => {
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
+  const [footerContent, setFooterContent] = useState<FooterContent>({ company_description: '', social_links: {} });
 
   useEffect(() => {
     fetchContactInfo();
+    fetchFooterContent();
   }, []);
 
   const fetchContactInfo = async () => {
@@ -43,6 +54,23 @@ const Footer = () => {
       console.error('Error fetching contact info:', error);
     }
   };
+
+  const fetchFooterContent = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('homepage_content')
+        .select('content')
+        .eq('section_name', 'footer_content')
+        .eq('is_active', true)
+        .maybeSingle();
+
+      if (!error && data?.content) {
+        setFooterContent(prev => ({ ...prev, ...data.content }));
+      }
+    } catch (error) {
+      console.error('Error fetching footer content:', error);
+    }
+  };
   return (
     <footer className="bg-powertrac-gray text-white">
       {/* Main Footer Content */}
@@ -55,18 +83,23 @@ const Footer = () => {
               <div className="text-sm font-normal opacity-80">Authorized Dealer</div>
             </div>
             <p className="text-white/80 mb-6 leading-relaxed">
-              Your trusted partner for premium PowerTrac tractors. We provide the best quality 
-              tractors, exceptional service, and comprehensive support for all your farming needs.
+              {footerContent.company_description || "Your trusted partner for premium PowerTrac tractors. We provide the best quality tractors, exceptional service, and comprehensive support for all your farming needs."}
             </p>
             <div className="flex gap-4">
-              <Button size="icon" variant="outline" className="border-white/20 text-white hover:bg-powertrac-orange hover:border-powertrac-orange">
-                <Facebook className="w-4 h-4" />
+              <Button asChild size="icon" variant="outline" className="border-white/20 text-white hover:bg-powertrac-orange hover:border-powertrac-orange">
+                <a href={footerContent.social_links?.facebook || "#"} target="_blank" rel="noopener noreferrer" aria-label="Facebook">
+                  <Facebook className="w-4 h-4" />
+                </a>
               </Button>
-              <Button size="icon" variant="outline" className="border-white/20 text-white hover:bg-powertrac-orange hover:border-powertrac-orange">
-                <Instagram className="w-4 h-4" />
+              <Button asChild size="icon" variant="outline" className="border-white/20 text-white hover:bg-powertrac-orange hover:border-powertrac-orange">
+                <a href={footerContent.social_links?.instagram || "#"} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                  <Instagram className="w-4 h-4" />
+                </a>
               </Button>
-              <Button size="icon" variant="outline" className="border-white/20 text-white hover:bg-powertrac-orange hover:border-powertrac-orange">
-                <Youtube className="w-4 h-4" />
+              <Button asChild size="icon" variant="outline" className="border-white/20 text-white hover:bg-powertrac-orange hover:border-powertrac-orange">
+                <a href={footerContent.social_links?.youtube || "#"} target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+                  <Youtube className="w-4 h-4" />
+                </a>
               </Button>
             </div>
           </div>
