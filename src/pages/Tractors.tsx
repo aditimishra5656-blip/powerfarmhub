@@ -5,8 +5,10 @@ import Footer from "@/components/Footer";
 import TractorCard from "@/components/TractorCard";
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Tractors = () => {
+  const { t } = useLanguage();
   const [tractors, setTractors] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -32,7 +34,7 @@ const Tractors = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-powertrac-green text-white">Our Tractor Range</Badge>
+            <Badge className="mb-4 bg-powertrac-green text-white">{t('tractors.title')}</Badge>
             <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
               Choose Your Perfect PowerTrac Tractor
             </h2>

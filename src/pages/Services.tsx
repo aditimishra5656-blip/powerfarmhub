@@ -5,8 +5,10 @@ import { Shield, Wrench, CreditCard, HeadphonesIcon, Calendar, Phone, User, Mess
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { ServiceBookingForm } from "@/components/CTAForms";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Services = () => {
+  const { t } = useLanguage();
   const services = [
     {
       icon: Shield,

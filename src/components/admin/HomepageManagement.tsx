@@ -59,6 +59,12 @@ const HomepageManagement = () => {
 
       if (error) throw error;
 
+      // Trigger refresh in other components
+      if (sectionName === 'footer_content') {
+        localStorage.setItem('footer_updated', Date.now().toString());
+        window.dispatchEvent(new StorageEvent('storage', { key: 'footer_updated' }));
+      }
+
       setContent(prev => prev.map(item => 
         item.section_name === sectionName 
           ? { ...item, content: newContent }

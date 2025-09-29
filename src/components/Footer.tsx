@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { 
   Phone, 
   Mail, 
@@ -29,12 +30,23 @@ interface FooterContent {
 }
 
 const Footer = () => {
+  const { t } = useLanguage();
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   const [footerContent, setFooterContent] = useState<FooterContent>({ company_description: '', social_links: {} });
 
   useEffect(() => {
     fetchContactInfo();
     fetchFooterContent();
+    
+    // Listen for storage events to refresh content when admin updates
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'footer_updated') {
+        fetchFooterContent();
+      }
+    };
+    
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const fetchContactInfo = async () => {
@@ -83,7 +95,7 @@ const Footer = () => {
               <div className="text-sm font-normal opacity-80">Authorized Dealer</div>
             </div>
             <p className="text-white/80 mb-6 leading-relaxed">
-              {footerContent.company_description || "Your trusted partner for premium PowerTrac tractors. We provide the best quality tractors, exceptional service, and comprehensive support for all your farming needs."}
+              {footerContent.company_description || t('footer.aboutText')}
             </p>
             <div className="flex gap-4">
               <Button asChild size="icon" variant="outline" className="border-white/20 text-white hover:bg-powertrac-orange hover:border-powertrac-orange">
@@ -141,7 +153,7 @@ const Footer = () => {
 
           {/* Quick Links */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Quick Links</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('footer.quickLinks')}</h3>
             <ul className="space-y-2">
               {[
                 { name: "About Us", href: "#about" },
@@ -196,7 +208,7 @@ const Footer = () => {
         <div className="container mx-auto px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-sm text-white/70">
-              © 2024 PowerTrac Authorized Dealer. All rights reserved. | Proudly serving farmers across the region.
+              © 2024 PowerTrac Authorized Dealer. {t('footer.rights')} | Proudly serving farmers across the region.
             </div>
             <div className="flex gap-6 text-sm text-white/70">
               <a href="#" className="hover:text-powertrac-orange transition-colors">Privacy Policy</a>

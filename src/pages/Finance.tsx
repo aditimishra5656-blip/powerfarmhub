@@ -6,8 +6,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { EMICalculator } from "@/components/EMICalculator";
 import { QuoteForm } from "@/components/CTAForms";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Finance = () => {
+  const { t } = useLanguage();
   const financeOptions = [
     {
       icon: CreditCard,

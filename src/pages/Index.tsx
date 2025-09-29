@@ -14,8 +14,10 @@ import { QuoteForm, ServiceBookingForm } from "@/components/CTAForms";
 
 import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Index = () => {
+  const { t } = useLanguage();
   const [featuredTractors, setFeaturedTractors] = useState<any[]>([]);
   const [loadingFeatured, setLoadingFeatured] = useState(true);
 
@@ -91,12 +93,12 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-powertrac-green text-white">Featured Models</Badge>
+            <Badge className="mb-4 bg-powertrac-green text-white">{t('tractors.title')}</Badge>
             <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
-              Popular PowerTrac Tractors
+              {t('tractors.subtitle')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Check out our most popular tractor models loved by thousands of farmers.
+              {t('tractors.callForSupport')}
             </p>
           </div>
 

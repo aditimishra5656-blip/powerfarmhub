@@ -4,8 +4,10 @@ import { MapPin, Calendar, Award } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import showroomImage from "@/assets/showroom.jpg";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
   return (
     <div className="min-h-screen bg-background">
       <Header />
@@ -15,10 +17,10 @@ const About = () => {
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <Badge className="mb-4 bg-powertrac-blue text-white">About Our Dealership</Badge>
-              <h2 className="text-4xl font-bold text-powertrac-blue mb-6">
-                15+ Years of Trusted Service in Agricultural Excellence
-              </h2>
+            <Badge className="mb-4 bg-powertrac-blue text-white">About Our Dealership</Badge>
+            <h2 className="text-4xl font-bold text-powertrac-blue mb-6">
+              15+ Years of Trusted Service in Agricultural Excellence
+            </h2>
               <p className="text-lg text-muted-foreground mb-6 leading-relaxed">
                 As an authorized PowerTrac dealer, we have been serving farmers across the region 
                 with premium quality tractors, exceptional service, and comprehensive support. 
