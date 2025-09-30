@@ -9,8 +9,9 @@ import ContactInfoManagement from "@/components/admin/ContactInfoManagement";
 import QuotesManagement from "@/components/admin/QuotesManagement";
 import ServiceBookingsManagement from "@/components/admin/ServiceBookingsManagement";
 import HomepageManagement from "@/components/admin/HomepageManagement";
+import PasswordChange from "@/components/admin/PasswordChange";
 import { useAuth } from "@/contexts/AuthContext";
-import { Tractor, Wrench, MessageSquare, BarChart3, LogOut, User, Home } from "lucide-react";
+import { Tractor, Wrench, MessageSquare, BarChart3, LogOut, User, Home, Settings } from "lucide-react";
 
 const Admin = () => {
   const { user, signOut } = useAuth();
@@ -48,7 +49,7 @@ const Admin = () => {
           </div>
 
           <Tabs defaultValue="homepage" className="w-full">
-            <TabsList className="grid w-full grid-cols-6 mb-8">
+            <TabsList className="grid w-full grid-cols-7 mb-8">
               <TabsTrigger value="homepage" className="flex items-center gap-2">
                 <Home className="w-4 h-4" />
                 Homepage
@@ -68,6 +69,10 @@ const Admin = () => {
               <TabsTrigger value="services" className="flex items-center gap-2">
                 <Wrench className="w-4 h-4" />
                 Service Bookings
+              </TabsTrigger>
+              <TabsTrigger value="settings" className="flex items-center gap-2">
+                <Settings className="w-4 h-4" />
+                Settings
               </TabsTrigger>
               <TabsTrigger value="analytics" className="flex items-center gap-2">
                 <BarChart3 className="w-4 h-4" />
@@ -93,6 +98,10 @@ const Admin = () => {
 
             <TabsContent value="services">
               <ServiceBookingsManagement />
+            </TabsContent>
+
+            <TabsContent value="settings">
+              <PasswordChange />
             </TabsContent>
 
             <TabsContent value="analytics">

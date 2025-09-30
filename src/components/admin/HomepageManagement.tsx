@@ -64,6 +64,10 @@ const HomepageManagement = () => {
         localStorage.setItem('footer_updated', Date.now().toString());
         window.dispatchEvent(new StorageEvent('storage', { key: 'footer_updated' }));
       }
+      if (sectionName === 'header_content') {
+        localStorage.setItem('header_updated', Date.now().toString());
+        window.dispatchEvent(new StorageEvent('storage', { key: 'header_updated' }));
+      }
 
       setContent(prev => prev.map(item => 
         item.section_name === sectionName 

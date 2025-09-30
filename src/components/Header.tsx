@@ -42,7 +42,18 @@ const Header = () => {
         console.error('Error fetching header content:', err);
       }
     };
+    
     fetchHeaderContent();
+
+    // Listen for updates from admin panel
+    const handleStorageChange = (e: StorageEvent) => {
+      if (e.key === 'header_updated') {
+        fetchHeaderContent();
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
 
   const navItems = [
