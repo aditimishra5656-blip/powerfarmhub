@@ -74,7 +74,7 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <Phone className="w-4 h-4" />
-              <span>{t('header.phone')}</span>
+              <span>{headerContent.contact_phone}</span>
             </div>
             <div className="flex items-center gap-1">
               <MapPin className="w-4 h-4" />
