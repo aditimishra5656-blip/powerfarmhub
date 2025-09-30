@@ -19,8 +19,7 @@ const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [headerContent, setHeaderContent] = useState<HeaderContent>({
     company_name: "PowerTrac",
-    logo_text: "PowerTrac",
-    contact_phone: "+91 97711 47194",
+    
     contact_email: "info@powertracdealer.com",
     top_bar_message: "Authorized PowerTrac Dealer",
   });
