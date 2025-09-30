@@ -120,7 +120,7 @@ const HeroSection = () => {
             <Button 
               size="lg" 
               variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-powertrac-blue font-bold text-lg px-8 py-4"
+              className="border-white text-white bg-white/20 backdrop-blur-sm hover:bg-white hover:text-powertrac-blue font-bold text-lg px-8 py-4"
               onClick={() => window.location.href = 'tel:+919876543210'}
             >
               <Phone className="w-5 h-5 mr-2" />

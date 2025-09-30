@@ -282,7 +282,7 @@ const Index = () => {
             <ServiceBookingForm triggerText="Book Service" variant="outline" />
             <Button 
               variant="outline" 
-              className="border-white text-white hover:bg-white hover:text-powertrac-blue"
+              className="border-white text-white bg-white/20 backdrop-blur-sm hover:bg-white hover:text-powertrac-blue"
               onClick={() => window.location.href = 'tel:+919876543210'}
             >
               <Phone className="w-4 h-4 mr-2" />
