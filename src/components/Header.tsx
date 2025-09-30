@@ -20,7 +20,7 @@ const Header = () => {
   const [headerContent, setHeaderContent] = useState<HeaderContent>({
     company_name: "PowerTrac",
     logo_text: "PowerTrac",
-    contact_phone: "+91 1234567890",
+    contact_phone: "+91 9771147194",
     contact_email: "info@powertracdealer.com",
     top_bar_message: "Authorized PowerTrac Dealer",
   });
