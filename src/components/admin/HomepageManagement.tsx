@@ -30,9 +30,11 @@ const HomepageManagement = () => {
 
   const fetchHomepageContent = async () => {
     try {
+      // Fetch only English version for editing (changes will be applied to both)
       const { data, error } = await supabase
         .from('homepage_content')
         .select('*')
+        .eq('language', 'en')
         .order('section_name');
 
       if (error) throw error;
@@ -52,12 +54,22 @@ const HomepageManagement = () => {
   const updateContent = async (sectionName: string, newContent: any) => {
     setSaving(true);
     try {
-      const { error } = await supabase
+      // Update both English and Hindi versions
+      const { error: enError } = await supabase
         .from('homepage_content')
         .update({ content: newContent })
-        .eq('section_name', sectionName);
+        .eq('section_name', sectionName)
+        .eq('language', 'en');
 
-      if (error) throw error;
+      if (enError) throw enError;
+
+      const { error: hiError } = await supabase
+        .from('homepage_content')
+        .update({ content: newContent })
+        .eq('section_name', sectionName)
+        .eq('language', 'hi');
+
+      if (hiError) throw hiError;
 
       // Trigger refresh in other components
       if (sectionName === 'footer_content') {
@@ -77,7 +89,7 @@ const HomepageManagement = () => {
 
       toast({
         title: "Success",
-        description: "Homepage content updated successfully",
+        description: "Content updated for both English and Hindi",
       });
     } catch (error) {
       console.error('Error updating content:', error);
@@ -474,7 +486,7 @@ const HomepageManagement = () => {
       <CardHeader>
         <CardTitle>Homepage Management</CardTitle>
         <CardDescription>
-          Customize your homepage content, images, and layout
+          Customize your homepage content, images, and layout. Changes will be applied to both English and Hindi versions.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -488,7 +500,9 @@ const HomepageManagement = () => {
           <TabsContent value="hero" className="mt-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Hero Section Content</h3>
-              <Badge variant="secondary">Dynamic Content</Badge>
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                🌐 English & Hindi
+              </Badge>
             </div>
             {renderHeroSectionEditor()}
           </TabsContent>
@@ -496,7 +510,9 @@ const HomepageManagement = () => {
           <TabsContent value="header" className="mt-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Header Content</h3>
-              <Badge variant="secondary">Dynamic Content</Badge>
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                🌐 English & Hindi
+              </Badge>
             </div>
             {renderHeaderEditor()}
           </TabsContent>
@@ -504,7 +520,9 @@ const HomepageManagement = () => {
           <TabsContent value="footer" className="mt-6">
             <div className="flex items-center justify-between mb-4">
               <h3 className="text-lg font-semibold">Footer Content</h3>
-              <Badge variant="secondary">Dynamic Content</Badge>
+              <Badge variant="secondary" className="bg-green-100 text-green-800">
+                🌐 English & Hindi
+              </Badge>
             </div>
             {renderFooterEditor()}
           </TabsContent>

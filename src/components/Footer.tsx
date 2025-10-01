@@ -54,6 +54,7 @@ const Footer = () => {
       const { data, error } = await supabase
         .from('contact_info')
         .select('*')
+        .eq('language', language)
         .limit(1)
         .maybeSingle();
 

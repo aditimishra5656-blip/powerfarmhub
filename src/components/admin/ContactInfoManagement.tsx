@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
+import { Badge } from "@/components/ui/badge";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Clock, Phone, Mail, Navigation } from "lucide-react";
@@ -34,9 +35,11 @@ const ContactInfoManagement = () => {
 
   const fetchContactInfo = async () => {
     try {
+      // Fetch English version for editing
       const { data, error } = await supabase
         .from('contact_info')
         .select('*')
+        .eq('language', 'en')
         .limit(1)
         .single();
 
@@ -72,25 +75,42 @@ const ContactInfoManagement = () => {
 
     try {
       if (contactInfo) {
-        // Update existing contact info
-        const { error } = await supabase
+        // Update existing contact info for both languages
+        const { error: enError } = await supabase
           .from('contact_info')
           .update(formData)
           .eq('id', contactInfo.id);
 
-        if (error) throw error;
-      } else {
-        // Create new contact info
-        const { error } = await supabase
-          .from('contact_info')
-          .insert([formData]);
+        if (enError) throw enError;
 
-        if (error) throw error;
+        // Also update Hindi version if it exists
+        const { error: hiError } = await supabase
+          .from('contact_info')
+          .update(formData)
+          .eq('language', 'hi');
+
+        // Don't throw error if Hindi version doesn't exist yet
+        if (hiError && hiError.code !== 'PGRST116') {
+          console.log('Hindi contact info not found, will be created on first use');
+        }
+      } else {
+        // Create new contact info for both languages
+        const { error: enError } = await supabase
+          .from('contact_info')
+          .insert([{ ...formData, language: 'en' }]);
+
+        if (enError) throw enError;
+
+        const { error: hiError } = await supabase
+          .from('contact_info')
+          .insert([{ ...formData, language: 'hi' }]);
+
+        if (hiError) throw hiError;
       }
 
       toast({
         title: "Success",
-        description: "Contact information updated successfully",
+        description: "Contact information updated for both English and Hindi",
       });
 
       setEditing(false);
@@ -110,14 +130,19 @@ const ContactInfoManagement = () => {
   if (!editing && contactInfo) {
     return (
       <Card>
-        <CardHeader>
-          <div className="flex justify-between items-center">
+      <CardHeader>
+        <div className="flex justify-between items-center">
+          <div>
             <CardTitle className="text-powertrac-blue">Contact Information</CardTitle>
-            <Button onClick={() => setEditing(true)} variant="outline">
-              Edit Contact Info
-            </Button>
+            <Badge variant="secondary" className="bg-green-100 text-green-800 mt-2">
+              🌐 Synced: English & Hindi
+            </Badge>
           </div>
-        </CardHeader>
+          <Button onClick={() => setEditing(true)} variant="outline">
+            Edit Contact Info
+          </Button>
+        </div>
+      </CardHeader>
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="space-y-4">
@@ -178,6 +203,9 @@ const ContactInfoManagement = () => {
         <CardTitle className="text-powertrac-blue">
           {contactInfo ? 'Edit Contact Information' : 'Add Contact Information'}
         </CardTitle>
+        <p className="text-sm text-muted-foreground mt-2">
+          Changes will be applied to both English and Hindi versions
+        </p>
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
