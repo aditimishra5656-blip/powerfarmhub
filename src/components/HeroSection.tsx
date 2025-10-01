@@ -24,12 +24,12 @@ interface HeroContent {
 }
 
 const HeroSection = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [heroContent, setHeroContent] = useState<HeroContent | null>(null);
 
   useEffect(() => {
     fetchHeroContent();
-  }, []);
+  }, [language]);
 
   const fetchHeroContent = async () => {
     try {
@@ -37,6 +37,7 @@ const HeroSection = () => {
         .from('homepage_content')
         .select('content')
         .eq('section_name', 'hero_section')
+        .eq('language', language)
         .eq('is_active', true)
         .maybeSingle();
 

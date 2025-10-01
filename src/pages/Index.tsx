@@ -40,23 +40,23 @@ const Index = () => {
   const keyServices = [
     {
       icon: Shield,
-      title: "Genuine Parts & Warranty",
-      description: "All PowerTrac tractors come with comprehensive warranty and access to genuine spare parts."
+      title: t('services.genuine'),
+      description: t('services.genuineDesc')
     },
     {
       icon: Wrench,
-      title: "Expert Service Support",
-      description: "Our certified technicians provide professional maintenance and repair services at your location."
+      title: t('services.expert'),
+      description: t('services.expertDesc')
     },
     {
       icon: CreditCard,
-      title: "Easy Finance Options", 
-      description: "Get instant loan approvals with attractive interest rates through our banking partnerships."
+      title: t('services.finance'), 
+      description: t('services.financeDesc')
     },
     {
       icon: HeadphonesIcon,
-      title: "24/7 Customer Care",
-      description: "Round-the-clock customer support for all your queries, service requests, and emergencies."
+      title: t('services.support'),
+      description: t('services.supportDesc')
     }
   ];
 
@@ -93,12 +93,12 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-powertrac-green text-white">{t('tractors.title')}</Badge>
+            <Badge className="mb-4 bg-powertrac-green text-white">{t('homepage.featuredTractorsLabel')}</Badge>
             <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
-              {t('tractors.subtitle')}
+              {t('homepage.featuredTractorsTitle')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {t('tractors.callForSupport')}
+              {t('homepage.featuredTractorsDesc')}
             </p>
           </div>
 
@@ -134,12 +134,12 @@ const Index = () => {
       <section className="py-20 bg-muted/50">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-powertrac-green text-white">Why Choose Us</Badge>
+            <Badge className="mb-4 bg-powertrac-green text-white">{t('homepage.whyChooseLabel')}</Badge>
             <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
-              Your Trusted PowerTrac Partner
+              {t('homepage.whyChooseTitle')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              With years of experience and commitment to excellence, we're your reliable partner for all PowerTrac needs.
+              {t('homepage.whyChooseDesc')}
             </p>
           </div>
 
@@ -148,32 +148,32 @@ const Index = () => {
               <div className="bg-powertrac-blue/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-blue/20 transition-colors">
                 <Award className="w-8 h-8 text-powertrac-blue" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Authorized Dealer</h3>
-              <p className="text-muted-foreground">Official PowerTrac dealership with genuine parts and warranty</p>
+              <h3 className="text-xl font-semibold mb-2">{t('homepage.authorizedDealer')}</h3>
+              <p className="text-muted-foreground">{t('homepage.authorizedDealerDesc')}</p>
             </div>
 
             <div className="text-center group">
               <div className="bg-powertrac-green/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-green/20 transition-colors">
                 <Users className="w-8 h-8 text-powertrac-green" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Expert Support</h3>
-              <p className="text-muted-foreground">Trained technicians for sales, service, and maintenance support</p>
+              <h3 className="text-xl font-semibold mb-2">{t('homepage.expertSupport')}</h3>
+              <p className="text-muted-foreground">{t('homepage.expertSupportDesc')}</p>
             </div>
 
             <div className="text-center group">
               <div className="bg-powertrac-orange/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-orange/20 transition-colors">
                 <Clock className="w-8 h-8 text-powertrac-orange" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Quick Service</h3>
-              <p className="text-muted-foreground">Fast delivery, immediate support, and prompt service response</p>
+              <h3 className="text-xl font-semibold mb-2">{t('homepage.quickService')}</h3>
+              <p className="text-muted-foreground">{t('homepage.quickServiceDesc')}</p>
             </div>
 
             <div className="text-center group">
               <div className="bg-powertrac-blue/10 w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-powertrac-blue/20 transition-colors">
                 <CheckCircle className="w-8 h-8 text-powertrac-blue" />
               </div>
-              <h3 className="text-xl font-semibold mb-2">Best Prices</h3>
-              <p className="text-muted-foreground">Competitive pricing with flexible financing options available</p>
+              <h3 className="text-xl font-semibold mb-2">{t('homepage.bestPrices')}</h3>
+              <p className="text-muted-foreground">{t('homepage.bestPricesDesc')}</p>
             </div>
           </div>
         </div>
@@ -183,12 +183,12 @@ const Index = () => {
       <section className="py-20 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-powertrac-orange text-white">Our Services</Badge>
+            <Badge className="mb-4 bg-powertrac-orange text-white">{t('homepage.servicesLabel')}</Badge>
             <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
-              Complete Support for Your Success
+              {t('homepage.servicesTitle')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              We provide comprehensive services beyond just selling tractors.
+              {t('homepage.servicesDesc')}
             </p>
           </div>
 
@@ -220,12 +220,12 @@ const Index = () => {
       <section className="py-20">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <Badge className="mb-4 bg-powertrac-blue text-white">Customer Stories</Badge>
+            <Badge className="mb-4 bg-powertrac-blue text-white">{t('homepage.testimonialsLabel')}</Badge>
             <h2 className="text-4xl font-bold text-powertrac-blue mb-4">
-              What Our Farmers Say
+              {t('homepage.testimonialsTitle')}
             </h2>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Real experiences from farmers who chose PowerTrac tractors.
+              {t('homepage.testimonialsDesc')}
             </p>
           </div>
 
@@ -273,9 +273,9 @@ const Index = () => {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-powertrac-blue to-powertrac-green text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-4">Ready to Power Your Farm?</h2>
+          <h2 className="text-4xl font-bold mb-4">{t('homepage.ctaTitle')}</h2>
           <p className="text-xl mb-8 max-w-2xl mx-auto">
-            Get in touch with us today for the best deals on PowerTrac tractors, expert advice, and comprehensive support.
+            {t('homepage.ctaDesc')}
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <QuoteForm triggerText="Get Best Quote" variant="secondary" />

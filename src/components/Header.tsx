@@ -24,17 +24,18 @@ const Header = () => {
     contact_email: "info@powertracdealer.com",
     top_bar_message: "Authorized PowerTrac Dealer",
   });
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   useEffect(() => {
-    const fetchHeaderContent = async () => {
-      try {
-        const { data, error } = await supabase
-          .from('homepage_content')
-          .select('content')
-          .eq('section_name', 'header_content')
-          .eq('is_active', true)
-          .maybeSingle();
+  const fetchHeaderContent = async () => {
+    try {
+      const { data, error } = await supabase
+        .from('homepage_content')
+        .select('content')
+        .eq('section_name', 'header_content')
+        .eq('language', language)
+        .eq('is_active', true)
+        .maybeSingle();
         if (!error && data?.content && typeof data.content === 'object') {
           setHeaderContent(prev => ({ ...prev, ...(data.content as Partial<HeaderContent>) }));
         }
@@ -54,7 +55,7 @@ const Header = () => {
 
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
+  }, [language]);
 
   const navItems = [
     { name: t('nav.home'), href: "/" },

@@ -30,7 +30,7 @@ interface FooterContent {
 }
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   const [footerContent, setFooterContent] = useState<FooterContent>({ company_description: '', social_links: {} });
 
@@ -47,7 +47,7 @@ const Footer = () => {
     
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
-  }, []);
+  }, [language]);
 
   const fetchContactInfo = async () => {
     try {
@@ -73,6 +73,7 @@ const Footer = () => {
         .from('homepage_content')
         .select('content')
         .eq('section_name', 'footer_content')
+        .eq('language', language)
         .eq('is_active', true)
         .maybeSingle();
 
@@ -118,7 +119,7 @@ const Footer = () => {
 
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('homepage.contactUs')}</h3>
             <div className="space-y-4">
               <div className="flex items-start gap-3">
                 <Phone className="w-5 h-5 text-powertrac-orange mt-0.5" />
@@ -179,7 +180,7 @@ const Footer = () => {
 
           {/* Services & Support */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Our Services</h3>
+            <h3 className="text-lg font-semibold mb-4">{t('homepage.ourServices')}</h3>
             <ul className="space-y-2 mb-6">
               {[
                 "Tractor Sales & Demo",
@@ -197,7 +198,7 @@ const Footer = () => {
             </ul>
             <Button className="w-full bg-powertrac-orange hover:bg-powertrac-orange/90 text-white">
               <MessageCircle className="w-4 h-4 mr-2" />
-              WhatsApp Us
+              {t('homepage.whatsappUs')}
             </Button>
           </div>
         </div>

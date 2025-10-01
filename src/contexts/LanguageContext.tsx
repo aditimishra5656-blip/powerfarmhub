@@ -158,6 +158,43 @@ const translations = {
       contactInfo: "Contact Info",
       followUs: "Follow Us",
       rights: "All rights reserved."
+    },
+    homepage: {
+      featuredTractorsLabel: "Our Featured Tractors",
+      featuredTractorsTitle: "Choose from our premium collection",
+      featuredTractorsDesc: "Call for instant support",
+      whyChooseLabel: "Why Choose Us",
+      whyChooseTitle: "Your Trusted PowerTrac Partner",
+      whyChooseDesc: "With years of experience and commitment to excellence, we're your reliable partner for all PowerTrac needs.",
+      authorizedDealer: "Authorized Dealer",
+      authorizedDealerDesc: "Official PowerTrac dealership with genuine parts and warranty",
+      expertSupport: "Expert Support",
+      expertSupportDesc: "Trained technicians for sales, service, and maintenance support",
+      quickService: "Quick Service",
+      quickServiceDesc: "Fast delivery, immediate support, and prompt service response",
+      bestPrices: "Best Prices",
+      bestPricesDesc: "Competitive pricing with flexible financing options available",
+      servicesLabel: "Our Services",
+      servicesTitle: "Complete Support for Your Success",
+      servicesDesc: "We provide comprehensive services beyond just selling tractors.",
+      testimonialsLabel: "Customer Stories",
+      testimonialsTitle: "What Our Farmers Say",
+      testimonialsDesc: "Real experiences from farmers who chose PowerTrac tractors.",
+      ctaTitle: "Ready to Power Your Farm?",
+      ctaDesc: "Get in touch with us today for the best deals on PowerTrac tractors, expert advice, and comprehensive support.",
+      contactUs: "Contact Us",
+      ourServices: "Our Services",
+      whatsappUs: "WhatsApp Us"
+    },
+    services: {
+      genuine: "Genuine Parts & Warranty",
+      genuineDesc: "All PowerTrac tractors come with comprehensive warranty and access to genuine spare parts.",
+      expert: "Expert Service Support",
+      expertDesc: "Our certified technicians provide professional maintenance and repair services at your location.",
+      finance: "Easy Finance Options",
+      financeDesc: "Get instant loan approvals with attractive interest rates through our banking partnerships.",
+      support: "24/7 Customer Care",
+      supportDesc: "Round-the-clock customer support for all your queries, service requests, and emergencies."
     }
   },
   hi: {
@@ -262,6 +299,43 @@ const translations = {
       contactInfo: "संपर्क जानकारी",
       followUs: "हमें फॉलो करें",
       rights: "सभी अधिकार सुरक्षित।"
+    },
+    homepage: {
+      featuredTractorsLabel: "हमारे फीचर्ड ट्रैक्टर",
+      featuredTractorsTitle: "हमारे प्रीमियम संग्रह से चुनें",
+      featuredTractorsDesc: "तत्काल सहायता के लिए कॉल करें",
+      whyChooseLabel: "हमें क्यों चुनें",
+      whyChooseTitle: "आपका विश्वसनीय पावरट्रैक भागीदार",
+      whyChooseDesc: "वर्षों के अनुभव और उत्कृष्टता के प्रति प्रतिबद्धता के साथ, हम आपकी सभी पावरट्रैक आवश्यकताओं के लिए आपके विश्वसनीय साझेदार हैं।",
+      authorizedDealer: "अधिकृत डीलर",
+      authorizedDealerDesc: "वास्तविक पुर्जों और वारंटी के साथ आधिकारिक पावरट्रैक डीलरशिप",
+      expertSupport: "विशेषज्ञ सहायता",
+      expertSupportDesc: "बिक्री, सेवा और रखरखाव सहायता के लिए प्रशिक्षित तकनीशियन",
+      quickService: "त्वरित सेवा",
+      quickServiceDesc: "तेज़ डिलीवरी, तत्काल सहायता और त्वरित सेवा प्रतिक्रिया",
+      bestPrices: "सर्वोत्तम मूल्य",
+      bestPricesDesc: "लचीले वित्तपोषण विकल्पों के साथ प्रतिस्पर्धी मूल्य निर्धारण",
+      servicesLabel: "हमारी सेवाएं",
+      servicesTitle: "आपकी सफलता के लिए संपूर्ण सहायता",
+      servicesDesc: "हम केवल ट्रैक्टर बेचने से परे व्यापक सेवाएं प्रदान करते हैं।",
+      testimonialsLabel: "ग्राहक कहानियां",
+      testimonialsTitle: "हमारे किसान क्या कहते हैं",
+      testimonialsDesc: "पावरट्रैक ट्रैक्टर चुनने वाले किसानों के वास्तविक अनुभव।",
+      ctaTitle: "अपने खेत को शक्ति देने के लिए तैयार हैं?",
+      ctaDesc: "पावरट्रैक ट्रैक्टरों पर सर्वोत्तम सौदों, विशेषज्ञ सलाह और व्यापक समर्थन के लिए आज ही हमसे संपर्क करें।",
+      contactUs: "संपर्क करें",
+      ourServices: "हमारी सेवाएं",
+      whatsappUs: "व्हाट्सएप करें"
+    },
+    services: {
+      genuine: "वास्तविक पुर्जे और वारंटी",
+      genuineDesc: "सभी पावरट्रैक ट्रैक्टर व्यापक वारंटी और वास्तविक स्पेयर पार्ट्स तक पहुंच के साथ आते हैं।",
+      expert: "विशेषज्ञ सेवा सहायता",
+      expertDesc: "हमारे प्रमाणित तकनीशियन आपके स्थान पर पेशेवर रखरखाव और मरम्मत सेवाएं प्रदान करते हैं।",
+      finance: "आसान वित्त विकल्प",
+      financeDesc: "हमारी बैंकिंग साझेदारी के माध्यम से आकर्षक ब्याज दरों के साथ तत्काल ऋण अनुमोदन प्राप्त करें।",
+      support: "24/7 ग्राहक सेवा",
+      supportDesc: "आपकी सभी पूछताछ, सेवा अनुरोध और आपात स्थिति के लिए 24 घंटे ग्राहक सहायता।"
     }
   }
 };

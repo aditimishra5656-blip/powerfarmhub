@@ -19,6 +19,7 @@ export type Database = {
           created_at: string
           email: string
           id: string
+          language: string
           opening_hours: string
           phone: string
           showroom_address: string
@@ -28,6 +29,7 @@ export type Database = {
           created_at?: string
           email: string
           id?: string
+          language?: string
           opening_hours: string
           phone: string
           showroom_address: string
@@ -37,6 +39,7 @@ export type Database = {
           created_at?: string
           email?: string
           id?: string
+          language?: string
           opening_hours?: string
           phone?: string
           showroom_address?: string
@@ -50,6 +53,7 @@ export type Database = {
           created_at: string
           id: string
           is_active: boolean
+          language: string
           section_name: string
           updated_at: string
         }
@@ -58,6 +62,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
+          language?: string
           section_name: string
           updated_at?: string
         }
@@ -66,6 +71,7 @@ export type Database = {
           created_at?: string
           id?: string
           is_active?: boolean
+          language?: string
           section_name?: string
           updated_at?: string
         }
