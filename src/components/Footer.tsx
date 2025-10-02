@@ -51,10 +51,11 @@ const Footer = () => {
 
   const fetchContactInfo = async () => {
     try {
+      // Always fetch English version - contact details are same for all languages
       const { data, error } = await supabase
         .from('contact_info')
         .select('*')
-        .eq('language', language)
+        .eq('language', 'en')
         .limit(1)
         .maybeSingle();
 
