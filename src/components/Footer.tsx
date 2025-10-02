@@ -199,7 +199,7 @@ const Footer = () => {
               ))}
             </ul>
             <Button className="w-full bg-powertrac-orange hover:bg-powertrac-orange/90 text-white">
-              <MessageCircle className="w-4 h-4 mr-2" />
+              <MessageCircle className="w-4 h-4 mr-2 fill-white" />
               {t('homepage.whatsappUs')}
             </Button>
           </div>
