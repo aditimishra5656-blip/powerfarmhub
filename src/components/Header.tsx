@@ -10,32 +10,56 @@ import { supabase } from "@/integrations/supabase/client";
 interface HeaderContent {
   company_name: string;
   logo_text: string;
-  contact_phone: string;
   contact_email: string;
   top_bar_message: string;
 }
 
+interface ContactInfo {
+  phone: string;
+  email: string;
+}
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [contactInfo, setContactInfo] = useState<ContactInfo | null>(null);
   const [headerContent, setHeaderContent] = useState<HeaderContent>({
     company_name: "PowerTrac",
     logo_text: "PowerTrac",
-    contact_phone: "+91 9771147194",
     contact_email: "info@powertracdealer.com",
     top_bar_message: "Authorized PowerTrac Dealer",
   });
   const { t, language } = useLanguage();
 
   useEffect(() => {
-  const fetchHeaderContent = async () => {
-    try {
-      const { data, error } = await supabase
-        .from('homepage_content')
-        .select('content')
-        .eq('section_name', 'header_content')
-        .eq('language', language)
-        .eq('is_active', true)
-        .maybeSingle();
+    const fetchContactInfo = async () => {
+      try {
+        // Always fetch English version - contact details are same for all languages
+        const { data, error } = await supabase
+          .from('contact_info')
+          .select('*')
+          .eq('language', 'en')
+          .limit(1)
+          .maybeSingle();
+
+        if (error && error.code !== 'PGRST116') throw error;
+        
+        if (data) {
+          setContactInfo(data);
+        }
+      } catch (error) {
+        console.error('Error fetching contact info:', error);
+      }
+    };
+
+    const fetchHeaderContent = async () => {
+      try {
+        const { data, error } = await supabase
+          .from('homepage_content')
+          .select('content')
+          .eq('section_name', 'header_content')
+          .eq('language', language)
+          .eq('is_active', true)
+          .maybeSingle();
         if (!error && data?.content && typeof data.content === 'object') {
           setHeaderContent(prev => ({ ...prev, ...(data.content as Partial<HeaderContent>) }));
         }
@@ -44,12 +68,16 @@ const Header = () => {
       }
     };
     
+    fetchContactInfo();
     fetchHeaderContent();
 
     // Listen for updates from admin panel
     const handleStorageChange = (e: StorageEvent) => {
       if (e.key === 'header_updated') {
         fetchHeaderContent();
+      }
+      if (e.key === 'contact_info_updated') {
+        fetchContactInfo();
       }
     };
 
@@ -75,7 +103,7 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-1">
               <Phone className="w-4 h-4" />
-              <span>{headerContent.contact_phone}</span>
+              <span>{contactInfo?.phone || "+91 9876543210"}</span>
             </div>
             <div className="flex items-center gap-1">
               <MapPin className="w-4 h-4" />

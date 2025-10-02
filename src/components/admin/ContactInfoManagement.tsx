@@ -115,6 +115,10 @@ const ContactInfoManagement = () => {
 
       setEditing(false);
       fetchContactInfo();
+      
+      // Trigger storage event to refresh Header and Footer
+      localStorage.setItem('contact_info_updated', Date.now().toString());
+      localStorage.removeItem('contact_info_updated');
     } catch (error) {
       console.error('Error saving contact info:', error);
       toast({
