@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogDescription } from "@/components/ui/dialog";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
-import { Phone, Mail, MessageSquare, Calendar } from "lucide-react";
+import { Phone, Mail, MessageCircle, Calendar } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface QuoteFormData {
@@ -281,6 +281,7 @@ export const ServiceBookingForm = ({ triggerText = "Book Service", variant = "ou
               : ""
           }
         >
+          <MessageCircle className="w-5 h-5 mr-2" />
           {triggerText}
         </Button>
       </DialogTrigger>
